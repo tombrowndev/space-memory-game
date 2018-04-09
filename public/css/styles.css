@@ -67,6 +67,66 @@ p {
 	margin-top: 10px;
 }
 
+#gameBoard {
+	position: relative;
+	display: none;
+	margin-top: 20px;
+	
+	background: #e0cf73;
+	background: -moz-linear-gradient(top, #e0cf73 0%, #7c3347 100%);
+	background: -webkit-linear-gradient(top, #e0cf73 0%,#7c3347 100%);
+	background: linear-gradient(to bottom, #e0cf73 0%,#7c3347 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0cf73', endColorstr='#7c3347',GradientType=0 );
+}
+
+/* Creates the height of the game board to a ration of 1:1 */
+#gameBoard:before {
+	content: '';
+	display: block;
+	padding-top: 100%;
+}
+
+#cardArea {
+	position: absolute;
+	top: 1%;
+	right: 1%;
+	bottom: 1%;
+	left: 1%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+}
+
+#cardArea .card {
+	width: 22%;
+	height: 22%;
+}
+
+#cardArea .card .front, #cardArea .card .back {
+	height: 100%;
+	border-radius: 6px;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	-webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.48);
+	-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.48);
+	box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.48);
+}
+
+#cardArea .card .front {
+	background-color: #091457;
+	background-image: url(../images/card-back.png);
+	background-size: 120%;
+	cursor: pointer;
+}
+
+#cardArea .card .back {
+	display: none;
+	background-color: #fff;
+	background-size: 60%;
+}
+
 /* FOOTER */
 #siteFooter {
 	padding: 20px;
