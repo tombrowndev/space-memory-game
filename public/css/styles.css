@@ -1,11 +1,34 @@
+/* FONTS */
+@font-face {
+    font-family: Nasa;
+    src: url(../fonts/Nasa.ttf);
+}
+
+/* STRUCTURE */
+
 body {
 	background-color: #05111f;
 	background-image: url(../images/site-bg.png);
 	background-size: cover;
+	font-size: 14px;
+	line-height: 1.3em;
 }
 
 #siteContainer {
 	max-width: 600px;
 	margin: 0 auto;
 	padding: 20px;
+}
+
+/* HEADER */
+
+#siteHeader {
+	padding: 20px 0;
+	text-align: center;
+}
+
+#siteHeader h1 {
+	font-family: Nasa, cursive;
+	font-size: 2em;
+	color: #fff;
 }
