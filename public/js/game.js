@@ -29,9 +29,10 @@
 		// Add instruction message
 		gameMessage.innerText = 'Please click on a card to start...';
 
-		// Reset game statistics
+		// Reset game variables
 		cardFlips = 0;
 		matchCount = 0;
+		tempCard = 0;
 
 		// Start the clock
 		startTime = getTheTime();
