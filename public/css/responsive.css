@@ -16,4 +16,20 @@
 		font-size: 3.2em;
 	}
 
+	#gameControls {
+		text-align: left;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	#gameMessage {
+		width: 50%;
+	}
+
+	#startGame {
+		width: 50%;
+		margin-top: 0;
+	}
+
 }
