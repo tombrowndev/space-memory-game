@@ -6,6 +6,17 @@
 		font-size: 2.6em;
 	}
 
+	.modal {
+		width: 400px;
+		margin-left: -200px;
+	}
+
+	#finishedGameModal h2 {
+		font-size: 2em;
+		line-height: 1.3em;
+		margin-bottom: 20px;
+	}
+
 }
 
 /* Large Screens */
@@ -31,5 +42,17 @@
 		width: 50%;
 		margin-top: 0;
 	}
+
+	.modal {
+		width: 500px;
+		margin-left: -250px;
+	}
+
+	#finishedGameModal h2 {
+		font-size: 2.5em;
+		line-height: 1.3em;
+		margin-bottom: 30px;
+	}
+
 
 }

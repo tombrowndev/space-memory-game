@@ -3,17 +3,21 @@
 	// Constants
 	const cardArea = document.getElementById('cardArea');
 	const startGameButton = document.getElementById('startGame');
+	const closeButton = document.getElementById('closeModal');
+	const mask = document.getElementById('mask');
+	const model = document.getElementById('finishedGameModal');
 
 	// Game variables
 	let tempCard = null;
 	let startTime = 0;
-	let endTime = 0;
 	let cardFlips = 0;
 	let matchCount = 0;
 
 	// Event Listeners
 	startGameButton.addEventListener('click', newGame);
 	cardArea.addEventListener('click', turnCard);
+	closeButton.addEventListener('click', closeModal);
+	closeButton.addEventListener('click', newGame);
 
 	// Clears any existing game and starts a new game
 	function newGame(e) {
@@ -53,7 +57,7 @@
 			// Create card top (Back of the card)
 			let front = document.createElement('div');
     		front.classList.add('front');
-    		//front.style.display = 'none';
+    		front.style.display = 'none';
 
     		// Create card bottom (Front of the card with the picture)
     		let back = document.createElement('div');
@@ -69,7 +73,7 @@
 
 		}
 
-		// Shufle the cards
+		// Shuffle the cards
 		shuffleChildren(newCards);
 
 		// Add the new cards to the DOM card area
@@ -147,10 +151,12 @@
 				if(prevValue === thisValue) {
 
 					// Increment the match counter
+					matchCount++;
 
-					if(matchCount == 8) {
+					if(matchCount == 2) {
 
-						endTime = getTheTime();
+						// Finish the game
+						finishGame();
 
 					}
 
@@ -192,10 +198,57 @@
 
 	}
 
+
+	// Returns the current time in miliseconds
 	function getTheTime() {
 
 		let d = new Date();
 		return d.getTime();
+
+	}
+
+
+	// Makes the modal popup with game statistics
+	function finishGame() {
+
+		// Work out how many seconds the game lasted
+		let totalSeconds = Math.floor((getTheTime() - startTime) / 1000);
+
+		// Generate a score
+		let score = Math.floor(totalSeconds / 10) + cardFlips;
+
+		// Generate a star rating
+		// 
+		// 1 - 31		3 Star
+		// 32 - 44		2 Stars
+		// 45+			1 Star
+		let stars;
+
+		if(score >= 45) {
+			stars = 1;
+		} else if (score < 45 && score >= 32) {
+			stars = 2;
+		} else if (score < 32) {
+			stars = 3;
+		}
+
+		// Add statistics to the popup
+		document.getElementById('numberOfFlips').innerText = `${cardFlips} flips`;
+		document.getElementById('timeTaken').innerText = `${totalSeconds} seconds`;
+		document.getElementById('finalScore').innerText = `${score} points`;
+		document.getElementById('finalStars').innerText = `${stars} stars`;
+
+		// Fade in the modal window and mask
+		$(mask).fadeIn();
+		$(model).fadeIn();
+
+	}
+
+	function closeModal() {
+
+		// Hide the modal and mask
+		$(mask).fadeOut();
+		$(model).fadeOut();
 
 	}
 	
