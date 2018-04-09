@@ -4,6 +4,9 @@
 	const cardArea = document.getElementById('cardArea');
 	const startGameButton = document.getElementById('startGame');
 
+	// Game variables
+	let tempCard = null;
+
 	// Event Listeners
 	startGameButton.addEventListener('click', newGame);
 	cardArea.addEventListener('click', turnCard);
@@ -94,16 +97,60 @@
 		// Check if the target was a card top, do nothing if it isn't
 		if(!e.target.classList.contains('front')) return;
 
-		// Store the card element thatcbelongs to this card top
+		// Store the card element and value that belongs to this card top
 		let thisCard = e.target.parentElement;
+		let thisValue = thisCard.getAttribute('data-match');
+
+		// These will hold the previous card and values if they exist
+		let prevCard;
+		let prevValue;
+
+		// Check if this is a first card flip
+		if(tempCard === null) {
+
+			// Store this card for comparison to future second card
+			tempCard = thisCard;
+
+
+		} else {
+
+			// Retrieve the first card
+			prevCard = tempCard;
+			prevValue = tempCard.getAttribute('data-match');
+
+			// Remove the temporary card asap for responsivness
+			tempCard = null;
+
+		}
 
 		// Flip the card
 		$(thisCard).flip(true, function(){
 
-			// Turn card back after half a second
-			setTimeout(function(){
-				$(thisCard).flip(false);
-			}, 500)
+			// Check if this is the second card
+			if(typeof prevCard !== 'undefined') {
+				
+				// If the match values match
+				if(prevValue === thisValue) {
+
+					// Do nothing
+					return;
+
+				} else {
+
+					// Flip this card back
+					setTimeout(function(){
+						$(thisCard).flip(false);
+					}, 500);
+
+					// Flip the previous card back
+					setTimeout(function(){
+						$(prevCard).flip(false);
+					}, 500);
+
+				}
+
+			}
+
 
 		});
 
