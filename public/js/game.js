@@ -51,6 +51,9 @@
 
 		}
 
+		// Shufle the cards
+		shuffleChildren(newCards);
+
 		// Add the new cards to the DOM card area
 		cardArea.appendChild(newCards);
 
@@ -65,6 +68,15 @@
 	  			$(cardArea).children().eq(j).children('.front').fadeIn();
 	  		}, delay);
 
+	  	}
+
+	}
+
+	// Shuffles the children of a parent DocumentFragment
+	function shuffleChildren(parent) {
+
+		for(let i = parent.children.length; i >= 0; i--) {
+	  		parent.appendChild(parent.children[Math.random() * i | 0]);
 	  	}
 
 	}
