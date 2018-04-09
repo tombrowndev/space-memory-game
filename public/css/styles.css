@@ -3,3 +3,9 @@ body {
 	background-image: url(../images/site-bg.png);
 	background-size: cover;
 }
+
+#siteContainer {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+}
