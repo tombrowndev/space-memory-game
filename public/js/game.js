@@ -6,6 +6,10 @@
 
 	// Game variables
 	let tempCard = null;
+	let startTime = 0;
+	let endTime = 0;
+	let cardFlips = 0;
+	let matchCount = 0;
 
 	// Event Listeners
 	startGameButton.addEventListener('click', newGame);
@@ -16,6 +20,13 @@
 
 		// Stop button click from redirecting
 		e.preventDefault();
+
+		// Reset game statistics
+		cardFlips = 0;
+		matchCount = 0;
+
+		// Start the clock
+		startTime = getTheTime();
 
 		// Fade in the game board if not visible
 		let gameBoard = document.getElementById('gameBoard');
@@ -105,6 +116,9 @@
 		let prevCard;
 		let prevValue;
 
+		// Increment card flip count
+		cardFlips++;
+
 		// Check if this is a first card flip
 		if(tempCard === null) {
 
@@ -131,6 +145,14 @@
 				
 				// If the match values match
 				if(prevValue === thisValue) {
+
+					// Increment the match counter
+
+					if(matchCount == 8) {
+
+						endTime = getTheTime();
+
+					}
 
 					// Blinking effect on card match
 					$(thisCard).effect('pulsate');
@@ -167,6 +189,13 @@
 
 
 		});
+
+	}
+
+	function getTheTime() {
+
+		let d = new Date();
+		return d.getTime();
 
 	}
 	
