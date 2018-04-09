@@ -122,7 +122,6 @@ p {
 }
 
 #cardArea .card .back {
-	display: none;
 	background-color: #fff;
 	background-size: 60%;
 }

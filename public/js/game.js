@@ -6,9 +6,13 @@
 
 	// Event Listeners
 	startGameButton.addEventListener('click', newGame);
+	cardArea.addEventListener('click', turnCard);
 
 	// Clears any existing game and starts a new game
-	function newGame() {
+	function newGame(e) {
+
+		// Stop button click from redirecting
+		e.preventDefault();
 
 		// Fade in the game board if not visible
 		let gameBoard = document.getElementById('gameBoard');
@@ -35,7 +39,7 @@
 			// Create card top (Back of the card)
 			let front = document.createElement('div');
     		front.classList.add('front');
-    		front.style.display = 'none';
+    		//front.style.display = 'none';
 
     		// Create card bottom (Front of the card with the picture)
     		let back = document.createElement('div');
@@ -56,6 +60,9 @@
 
 		// Add the new cards to the DOM card area
 		cardArea.appendChild(newCards);
+
+		// Add the flip animation event to the new cards
+		$('.card').flip({'trigger' : 'manual'});
 
 		// Fade the cards in one by one
 	  	for(let j = 0; j < cardArea.children.length; j++) {
@@ -78,6 +85,27 @@
 		for(let i = parent.children.length; i >= 0; i--) {
 	  		parent.appendChild(parent.children[Math.random() * i | 0]);
 	  	}
+
+	}
+
+	// Process a card click
+	function turnCard(e) {
+
+		// Check if the target was a card top, do nothing if it isn't
+		if(!e.target.classList.contains('front')) return;
+
+		// Store the card element thatcbelongs to this card top
+		let thisCard = e.target.parentElement;
+
+		// Flip the card
+		$(thisCard).flip(true, function(){
+
+			// Turn card back after half a second
+			setTimeout(function(){
+				$(thisCard).flip(false);
+			}, 500)
+
+		});
 
 	}
 	
