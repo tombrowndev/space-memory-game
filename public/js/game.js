@@ -132,20 +132,34 @@
 				// If the match values match
 				if(prevValue === thisValue) {
 
+					// Blinking effect on card match
+					$(thisCard).effect('pulsate');
+					$(prevCard).effect('pulsate');
+
 					// Do nothing
 					return;
 
 				} else {
 
-					// Flip this card back
-					setTimeout(function(){
-						$(thisCard).flip(false);
-					}, 500);
+					// Shake and Flip this card back
+					$(thisCard).effect({
+						effect: 'shake',
+						complete: function(){
+							setTimeout(function(){
+								$(thisCard).flip(false);
+							}, 500);
+						}
+					});
 
-					// Flip the previous card back
-					setTimeout(function(){
-						$(prevCard).flip(false);
-					}, 500);
+					// Shake and Flip the previous card back
+					$(prevCard).effect({
+						effect: 'shake',
+						complete: function(){
+							setTimeout(function(){
+								$(prevCard).flip(false);
+							}, 500);
+						}
+					});
 
 				}
 
