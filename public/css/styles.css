@@ -54,6 +54,7 @@ p {
 	background-color: #ddcb71;
 	padding: 20px;
 	text-align: center;
+	border-radius: 6px;
 }
 
 #gameMessage {
@@ -71,6 +72,7 @@ p {
 	position: relative;
 	display: none;
 	margin-top: 20px;
+	border-radius: 6px;
 	
 	background: #e0cf73;
 	background: -moz-linear-gradient(top, #e0cf73 0%, #7c3347 100%);

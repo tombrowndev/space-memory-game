@@ -1,6 +1,10 @@
 /* Medium Screens */
 
 @media screen and (min-width: 480px) {
+
+	#siteHeader {
+		padding: 30px 0;
+	}
 	
 	#siteHeader h1 {
 		font-size: 2.6em;
@@ -23,6 +27,10 @@
 
 @media screen and (min-width: 600px) {
 
+	#siteHeader {
+		padding: 40px 0;
+	}
+
 	#siteHeader h1 {
 		font-size: 3.2em;
 	}
@@ -35,11 +43,11 @@
 	}
 
 	#gameMessage {
-		width: 50%;
+		width: 75%;
 	}
 
 	#startGame {
-		width: 50%;
+		width: 25%;
 		margin-top: 0;
 	}
 

@@ -6,6 +6,7 @@
 	const closeButton = document.getElementById('closeModal');
 	const mask = document.getElementById('mask');
 	const model = document.getElementById('finishedGameModal');
+	const gameMessage = document.getElementById('gameMessage');
 
 	// Game variables
 	let tempCard = null;
@@ -25,6 +26,9 @@
 		// Stop button click from redirecting
 		e.preventDefault();
 
+		// Add instruction message
+		gameMessage.innerText = 'Please click on a card to start...';
+
 		// Reset game statistics
 		cardFlips = 0;
 		matchCount = 0;
@@ -32,14 +36,14 @@
 		// Start the clock
 		startTime = getTheTime();
 
-		// Fade in the game board if not visible
-		let gameBoard = document.getElementById('gameBoard');
-		$(gameBoard).fadeIn();
-
 		// Remove cards from previous game
 		while (cardArea.firstChild) {
 	    	cardArea.removeChild(cardArea.firstChild);
 		}
+
+		// Fade in the game board if not visible
+		let gameBoard = document.getElementById('gameBoard');
+		$(gameBoard).fadeIn();
 
 		// Temporary holder for card elements
 		let newCards = document.createDocumentFragment();
@@ -112,6 +116,12 @@
 		// Check if the target was a card top, do nothing if it isn't
 		if(!e.target.classList.contains('front')) return;
 
+		// Add initial message on first card flip
+		if(matchCount === 0) {
+			gameMessage.innerText = `You've found 0 out of 8 pairs captain!`;
+
+		}
+
 		// Store the card element and value that belongs to this card top
 		let thisCard = e.target.parentElement;
 		let thisValue = thisCard.getAttribute('data-match');
@@ -153,7 +163,10 @@
 					// Increment the match counter
 					matchCount++;
 
-					if(matchCount == 2) {
+					// Update the game message
+					gameMessage.innerText = `You've found ${matchCount} out of 8 pairs captain!`;
+
+					if(matchCount == 8) {
 
 						// Finish the game
 						finishGame();
