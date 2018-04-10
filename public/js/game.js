@@ -8,6 +8,7 @@
 	const model = document.getElementById('finishedGameModal');
 	const gameMessage = document.getElementById('gameMessage');
 	const timer = document.getElementById('timer');
+	const flipsAndStars = document.getElementById('flipsAndStars');
 
 	// Game variables
 	let tempCard = null;
@@ -40,6 +41,9 @@
 		startTime = getTheTime();
 		updateTimer();
 		myTimer = setInterval(updateTimer, 1000);
+
+		// Reset flips and stars visual
+		flipsAndStars.innerHTML = 'Flips <em>0</em> &nbsp; Rating <em>3 stars</em>';
 
 		// Remove cards from previous game
 		while (cardArea.firstChild) {
@@ -138,6 +142,18 @@
 		// Increment card flip count
 		cardFlips++;
 
+		// Work out how many seconds the game lasted
+		let totalSeconds = getTotalSeconds();
+
+		// Generate a score
+		let score = Math.floor(totalSeconds / 10) + cardFlips;
+
+		// Calulate stars
+		let stars = calculateStars(score);
+
+		// Show stats to users
+		flipsAndStars.innerHTML = `Flips <em>${cardFlips}</em> &nbsp; Rating <em>${stars}</em>`;
+
 		// Check if this is a first card flip
 		if(tempCard === null) {
 
@@ -160,65 +176,61 @@
 		$(thisCard).flip(true, function(){
 
 			// Check if this is the second card
-			if(typeof prevCard !== 'undefined') {
+			if(typeof prevCard === 'undefined') return;
 				
-				// If the match values match
-				if(prevValue === thisValue) {
+			// If the match values match
+			if(prevValue == thisValue) {
 
-					// Increment the match counter
-					matchCount++;
+				// Increment the match counter
+				matchCount++;
 
-					// Update the game message
-					gameMessage.innerText = `You've found ${matchCount} out of 8 pairs captain!`;
+				// Update the game message
+				gameMessage.innerText = `You've found ${matchCount} out of 8 pairs captain!`;
 
-					if(matchCount == 8) {
+				if(matchCount == 8) {
 
-						// Stop the timer
-						clearInterval(myTimer);
+					// Stop the timer
+					clearInterval(myTimer);
 
-						// Finish the game
-						finishGame();
-
-					}
-
-					// Blinking effect on card match
-					$(thisCard).effect('pulsate');
-					$(prevCard).effect('pulsate');
-
-					// Do nothing
-					return;
-
-				} else {
-
-					// Shake and Flip this card back
-					$(thisCard).effect({
-						effect: 'shake',
-						complete: function(){
-							setTimeout(function(){
-								$(thisCard).flip(false);
-							}, 500);
-						}
-					});
-
-					// Shake and Flip the previous card back
-					$(prevCard).effect({
-						effect: 'shake',
-						complete: function(){
-							setTimeout(function(){
-								$(prevCard).flip(false);
-							}, 500);
-						}
-					});
+					// Finish the game
+					finishGame();
 
 				}
 
-			}
+				// Blinking effect on card match
+				$(thisCard).effect('pulsate');
+				$(prevCard).effect('pulsate');
 
+				// Do nothing
+				return;
 
-		});
+			} else {
+
+				// Shake and Flip this card back
+				$(thisCard).effect({
+					effect: 'shake',
+					complete: function(){
+						setTimeout(function(){
+							$(thisCard).flip(false);
+						}, 500);
+					}
+				});
+
+				// Shake and Flip the previous card back
+				$(prevCard).effect({
+					effect: 'shake',
+					complete: function(){
+						setTimeout(function(){
+							$(prevCard).flip(false);
+						}, 500);
+					}
+				});
+
+			} // endif (prevValue === thisValue)
+
+		}); // jQuery Card Flip
 
 	}
-
 
 	// Returns the current time in miliseconds
 	function getTheTime() {
@@ -231,15 +243,14 @@
 	// Updates the clock with the game time
 	function updateTimer() {
 
-		// Work out how many seconds the game has lasted so far
-		let distance = Math.floor((getTheTime() - startTime));
-
+		// Work out how many milliseconds the game has lasted so far
+		let distance = getTotalSeconds() * 1000;
 		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   		// Display to the player
-  		timer.innerText = `Time elapsed: ${hours}h ${minutes}m ${seconds}s`;
+  		timer.innerHTML = `Time elapsed <em>${hours}h ${minutes}m ${seconds}s</em>`;
 
 	}
 
@@ -248,16 +259,38 @@
 	function finishGame() {
 
 		// Work out how many seconds the game lasted
-		let totalSeconds = Math.floor((getTheTime() - startTime) / 1000);
+		let totalSeconds = getTotalSeconds();
 
 		// Generate a score
 		let score = Math.floor(totalSeconds / 10) + cardFlips;
 
-		// Generate a star rating
-		// 
-		// 1 - 31		3 Stars
-		// 32 - 44		2 Stars
-		// 45+			1 Star
+		// Calulate stars
+		let stars = calculateStars(score);
+
+		// Add statistics to the popup
+		document.getElementById('numberOfFlips').innerText = `${cardFlips} flips`;
+		document.getElementById('timeTaken').innerText = `${totalSeconds} seconds`;
+		document.getElementById('finalStars').innerText = `${stars}`;
+		document.getElementById('finalScore').innerText = `${score} points`;
+
+		// Fade in the modal window and mask
+		$(mask).fadeIn();
+		$(model).fadeIn();
+
+	}
+
+	// Close the finished game modal
+	function closeModal() {
+
+		// Hide the modal and mask
+		$(mask).fadeOut();
+		$(model).fadeOut();
+
+	}
+
+	// Calculate star rating based on score
+	function calculateStars(score) {
+
 		let stars;
 
 		if(score >= 45) {
@@ -268,23 +301,14 @@
 			stars = '3 stars';
 		}
 
-		// Add statistics to the popup
-		document.getElementById('numberOfFlips').innerText = `${cardFlips} flips`;
-		document.getElementById('timeTaken').innerText = `${totalSeconds} seconds`;
-		document.getElementById('finalScore').innerText = `${score} points`;
-		document.getElementById('finalStars').innerText = `${stars}`;
-
-		// Fade in the modal window and mask
-		$(mask).fadeIn();
-		$(model).fadeIn();
+		return stars;
 
 	}
 
-	function closeModal() {
+	// Returns the total seconds the game has lasted
+	function getTotalSeconds() {
 
-		// Hide the modal and mask
-		$(mask).fadeOut();
-		$(model).fadeOut();
+		return Math.floor((getTheTime() - startTime) / 1000);
 
 	}
 	
