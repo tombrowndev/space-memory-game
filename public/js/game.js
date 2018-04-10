@@ -315,7 +315,7 @@
 
 	/**
 	 * Calculates the star rating
-	 * @function calculateScore
+	 * @function calculateStars
 	 * @param  {int} score
 	 * @return {string}
 	 */
