@@ -255,24 +255,24 @@
 
 		// Generate a star rating
 		// 
-		// 1 - 31		3 Star
+		// 1 - 31		3 Stars
 		// 32 - 44		2 Stars
 		// 45+			1 Star
 		let stars;
 
 		if(score >= 45) {
-			stars = 1;
+			stars = '1 star';
 		} else if (score < 45 && score >= 32) {
-			stars = 2;
+			stars = '2 stars';
 		} else if (score < 32) {
-			stars = 3;
+			stars = '3 stars';
 		}
 
 		// Add statistics to the popup
 		document.getElementById('numberOfFlips').innerText = `${cardFlips} flips`;
 		document.getElementById('timeTaken').innerText = `${totalSeconds} seconds`;
 		document.getElementById('finalScore').innerText = `${score} points`;
-		document.getElementById('finalStars').innerText = `${stars} stars`;
+		document.getElementById('finalStars').innerText = `${stars}`;
 
 		// Fade in the modal window and mask
 		$(mask).fadeIn();
