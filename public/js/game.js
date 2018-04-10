@@ -43,7 +43,7 @@
 		myTimer = setInterval(updateTimer, 1000);
 
 		// Reset flips and stars visual
-		flipsAndStars.innerHTML = 'Flips <em>0</em> &nbsp; Rating <em>3 stars</em>';
+		flipsAndStars.innerHTML = 'Flips <em>0</em> &nbsp; Rating <em>&bigstar;	&bigstar; &bigstar;</em>';
 
 		// Remove cards from previous game
 		while (cardArea.firstChild) {
@@ -270,7 +270,7 @@
 		// Add statistics to the popup
 		document.getElementById('numberOfFlips').innerText = `${cardFlips} flips`;
 		document.getElementById('timeTaken').innerText = `${totalSeconds} seconds`;
-		document.getElementById('finalStars').innerText = `${stars}`;
+		document.getElementById('finalStars').innerHTML = `${stars}`;
 		document.getElementById('finalScore').innerText = `${score} points`;
 
 		// Fade in the modal window and mask
@@ -294,11 +294,11 @@
 		let stars;
 
 		if(score >= 45) {
-			stars = '1 star';
+			stars = '&bigstar;';
 		} else if (score < 45 && score >= 32) {
-			stars = '2 stars';
+			stars = '&bigstar; &bigstar;';
 		} else if (score < 32) {
-			stars = '3 stars';
+			stars = '&bigstar; &bigstar; &bigstar;';
 		}
 
 		return stars;
