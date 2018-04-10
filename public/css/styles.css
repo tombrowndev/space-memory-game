@@ -188,8 +188,8 @@ p {
 }
 
 #statsContainer p {
-	width: 50%;
-	text-align: left;
+	width: 100%;
+	text-align: center;
 }
 
 #numberOfFlips, #timeTaken, #finalScore, #finalStars {

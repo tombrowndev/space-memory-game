@@ -62,5 +62,9 @@
 		margin-bottom: 30px;
 	}
 
+	#statsContainer p {
+		width: 50%;
+		text-align: left;
+	}
 
 }

@@ -32,7 +32,7 @@
 		// Reset game variables
 		cardFlips = 0;
 		matchCount = 0;
-		tempCard = 0;
+		tempCard = null;
 
 		// Start the clock
 		startTime = getTheTime();
@@ -167,7 +167,7 @@
 					// Update the game message
 					gameMessage.innerText = `You've found ${matchCount} out of 8 pairs captain!`;
 
-					if(matchCount == 8) {
+					if(matchCount == 2) {
 
 						// Finish the game
 						finishGame();
