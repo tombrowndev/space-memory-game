@@ -1,6 +1,6 @@
 (function(){
 
-	// Constants
+	/** Constants */
 	const cardArea = document.getElementById('cardArea');
 	const startGameButton = document.getElementById('startGame');
 	const closeButton = document.getElementById('closeModal');
@@ -10,20 +10,24 @@
 	const timer = document.getElementById('timer');
 	const flipsAndStars = document.getElementById('flipsAndStars');
 
-	// Game variables
+	/** Game variables */
 	let tempCard = null;
 	let startTime = 0;
 	let cardFlips = 0;
 	let matchCount = 0;
 	let myTimer;
 
-	// Event Listeners
+	/** Event Listeners */
 	startGameButton.addEventListener('click', newGame);
 	cardArea.addEventListener('click', turnCard);
 	closeButton.addEventListener('click', closeModal);
 	closeButton.addEventListener('click', newGame);
 
-	// Clears any existing game and starts a new game
+	/**
+	 * Generates a new game
+	 * @function newGame
+	 * @param  {Event} e Contains information of the event
+	 */
 	function newGame(e) {
 
 		// Stop button click from redirecting
@@ -110,7 +114,11 @@
 
 	}
 
-	// Shuffles the children of a parent DocumentFragment
+	/**
+	 * Shuffles the child elements of a document fragment
+	 * @function shuffleChildren
+	 * @param  {DocumentFragment} parent Parent who's children will be shuffled
+	 */
 	function shuffleChildren(parent) {
 
 		for(let i = parent.children.length; i >= 0; i--) {
@@ -119,7 +127,11 @@
 
 	}
 
-	// Process a card click
+	/**
+	 * Process a card turn
+	 * @function turnCard
+	 * @param  {Event} e Contains information of the event
+	 */
 	function turnCard(e) {
 
 		// Check if the target was a card top, do nothing if it isn't
@@ -232,7 +244,11 @@
 
 	}
 
-	// Returns the current time in miliseconds
+	/**
+	 * Returns the current time in milliseconds
+	 * @function getTheTime
+	 * @return {int} Time in milliseconds
+	 */
 	function getTheTime() {
 
 		let d = new Date();
@@ -240,7 +256,10 @@
 
 	}
 
-	// Updates the clock with the game time
+	/**
+	 * Updates the timer display in the DOM
+	 * @function updateTimer
+	 */
 	function updateTimer() {
 
 		// Work out how many milliseconds the game has lasted so far
@@ -255,7 +274,10 @@
 	}
 
 
-	// Makes the modal popup with game statistics
+	/**
+	 * Used by turnCard when game is finished
+	 * @function finishGame
+	 */
 	function finishGame() {
 
 		// Work out how many seconds the game lasted
@@ -279,7 +301,10 @@
 
 	}
 
-	// Close the finished game modal
+	/**
+	 * Closes the modal window and mask
+	 * @function closeModal
+	 */
 	function closeModal() {
 
 		// Hide the modal and mask
@@ -288,7 +313,12 @@
 
 	}
 
-	// Calculate star rating based on score
+	/**
+	 * Calculates the star rating
+	 * @function calculateScore
+	 * @param  {int} score
+	 * @return {string}
+	 */
 	function calculateStars(score) {
 
 		let stars;
@@ -305,7 +335,11 @@
 
 	}
 
-	// Returns the total seconds the game has lasted
+	/**
+	 * Calculates the amount of seconds since the game started
+	 * @function getTotalSeconds
+	 * @return {int} Number of seconds
+	 */
 	function getTotalSeconds() {
 
 		return Math.floor((getTheTime() - startTime) / 1000);
